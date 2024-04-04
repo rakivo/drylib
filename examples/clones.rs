@@ -13,22 +13,18 @@ fn main() {
     // This ^ creates new variables using the formula: {CLONES_PREFIX}{identifier(name) of the variable}.
     // By default CLONES_PREFIX is 'c', but you can specify it with following features: [clones-prefix-c, clones-prefix-cl, clones-prefix-clo, clones-prefix-clon, clones-prefix-clone], select the one and prefixes will be appropriate
     // Therefore, the `clones` macro expands as follows:
-    // ```
     // let cdigit = digit.clone();
     // let cvector = vector.clone();
     // let cstring = string.clone();
-    // ```
 
     // We can print them:
     println!("cdigit: {cdigit}, cvector: {cvector:?}, cstring: {cstring}");
 
     // Here is another one, the `mutclones` macro, it does the same thing as the clones macro, but expanded variables are mutable.
     mutclones!(digit, vector, string); // The `mutclones` macro expands in this code:
-    // ```
     // let mut cdigit = digit.clone();
     // let mut cvector = vector.clone();
     // let mut cstring = string.clone();
-    // ```
 
     // The variables are mutable, therefore you can easily reassign them:
     cdigit = 4;
