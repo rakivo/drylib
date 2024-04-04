@@ -4,7 +4,7 @@ mod tests {
 
     #[test]
     fn muting() {
-        muts!(a = 5, b = 2, c = 3);
+        muts!(a = 5; b = 2; c = 3);
 
         assert_eq!(a, 5);
         assert_eq!(b, 2);
@@ -52,7 +52,7 @@ mod tests {
 
     #[test]
     fn muting_and_cloning() {
-        muts!(a = 5, b = 2, c = 3);
+        muts!(a = 5; b = 2; c = 3);
 
         assert_eq!(a, 5);
         assert_eq!(b, 2);
@@ -74,7 +74,7 @@ mod tests {
 
     #[test]
     fn muting_and_mut_cloning() {
-        muts!(a = 5, b = 2, c = 3);
+        muts!(a = 5; b = 2; c = 3);
 
         assert_eq!(a, 5);
         assert_eq!(b, 2);
@@ -103,7 +103,7 @@ mod tests {
 
     #[test]
     fn muting_and_muts_cloning() {
-        muts!(a = 5, b = 2, c = 3);
+        muts!(a = 5; b = 2; c = 3);
 
         assert_eq!(a, 5);
         assert_eq!(b, 2);
