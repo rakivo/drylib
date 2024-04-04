@@ -14,7 +14,7 @@ pub fn get_muts_(ids: Vec::<Ident>, vals: Vec::<Vec::<TokenTree>>) -> Vec::<Toke
         ts.push(TokenTree::Ident(Ident::new("mut", Span::call_site())));
         ts.push(TokenTree::Ident(ident));
         ts.push(TokenTree::Punct(Punct::new('=', Spacing::Alone)));
-        value.into_iter().for_each(|tt| ts.push(tt));
+        ts.extend(value);
         ts.push(TokenTree::Punct(Punct::new(';', Spacing::Alone)));
     } ts
 }
@@ -31,7 +31,7 @@ where I: Iterator<Item = TokenTree>
             if let Some(TokenTree::Punct(punct)) = iter.next() {
                 if punct.as_char().eq(&'=') {
                     let mut temp = Vec::new();
-                    loop {
+                    loop { // Collecting all of the tokens starting from Punct('=') to the Punct(';')
                         if let Some(next) = iter.next() {
                             if let TokenTree::Punct(punct) = &next {
                                 if punct.as_char() == ';' { break; }

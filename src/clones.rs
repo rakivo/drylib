@@ -2,9 +2,9 @@ use proc_macro::{
     Span,
     Ident,
     Group,
-    Delimiter,
     Punct,
     Spacing,
+    Delimiter,
     TokenTree,
     TokenStream
 };
@@ -44,6 +44,8 @@ where I: Iterator<Item = TokenTree>
                 ret.push((ident, false));
                 (false, ret)
             }
-        } else { (false, ret) }
+        } else {
+            (false, ret)
+        }
     }).1
 }

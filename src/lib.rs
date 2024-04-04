@@ -28,9 +28,7 @@ pub fn mutclones(input: TokenStream) -> TokenStream {
 #[cfg(feature = "muts")]
 pub fn muts(input: TokenStream) -> TokenStream {
     use crate::muts::*;
-    #[allow(unused)]
-    let mut iter = input.into_iter();
-    let (ids, ids_len, vals, vals_len) = muts_get_ids_vals_(&mut iter);
+    let (ids, ids_len, vals, vals_len) = muts_get_ids_vals_(&mut input.into_iter());
     assert_eq!(ids_len, vals_len, "The number of idents and values must be the same");
     TokenStream::from_iter(get_muts_(ids, vals))
 }
