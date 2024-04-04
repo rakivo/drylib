@@ -6,7 +6,7 @@ authors = ["Mark Tyrkba <marktyrkba456@gmail.com>"]
 categories = ["macros-and-metaprogramming", "development-tools::procedural-macro-helpers", "code-generation"]
 description = "Rust macro-library for Don't Repeating Yourself"
 keywords = ["macros", "dry", "drylib"]
-license = "MIT"
+license = "MIT or Apache-2.0"
 repository = "https://github.com/rakivo/drylib"
 rust-version = "1.79.0"
 
