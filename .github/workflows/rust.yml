@@ -17,5 +17,5 @@ jobs:
     steps:
     - name: Run tests
       run: |
-      cd ~/work/drylib
-      cargo test --verbose
+        cd ~/work/drylib
+        cargo test --verbose
