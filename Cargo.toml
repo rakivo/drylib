@@ -1,0 +1,30 @@
+[package]
+name = "drylib"
+version = "0.1.0"
+edition = "2021"
+authors = ["Mark Tyrkba <marktyrkba456@gmail.com>"]
+categories = ["macros-and-metaprogramming", "development-tools::procedural-macro-helpers", "code-generation"]
+description = "Rust macro-library for Don't Repeating Yourself"
+keywords = ["macros", "dry", "drylib"]
+license = "MIT"
+repository = "https://github.com/rakivo/drylib"
+rust-version = "1.79.0"
+
+[features]
+default = ["clones", "mutclones", "muts"]
+full = []
+muts = []
+clones = []
+mutclones = []
+clones-prefix-c = []
+clones-prefix-cl = []
+clones-prefix-clo = []
+clones-prefix-clon = []
+clones-prefix-clone = []
+
+[lib]
+proc-macro = true
+
+[package.metadata.docs.rs]
+all-features = true
+targets = ["x86_64-unknown-linux-gnu"]
