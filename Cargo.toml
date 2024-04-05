@@ -11,11 +11,19 @@ repository = "https://github.com/rakivo/drylib"
 rust-version = "1.79.0"
 
 [dependencies]
-drylib-proc-macros = { path = "drylib-proc-macros" }
+drylib-proc-macros = { path = "drylib-proc-macros", optional = true }
     
 [features]
-default = ["decls"]
+default = ["muts", "decls", "clones"]
 decls = []
+muts = ["drylib-proc-macros/muts"]
+clones = ["drylib-proc-macros/clones"]
+mutclones = ["drylib-proc-macros/mutclones"]
+clones-prefix-c = ["drylib-proc-macros/clones-prefix-c"]
+clones-prefix-cl = ["drylib-proc-macros/clones-prefix-cl"]
+clones-prefix-clo = ["drylib-proc-macros/clones-prefix-clo"]
+clones-prefix-clon = ["drylib-proc-macros/clones-prefix-clon"]
+clones-prefix-clone = ["drylib-proc-macros/clones-prefix-clone"]
 
 [package.metadata.docs.rs]
 all-features = true
