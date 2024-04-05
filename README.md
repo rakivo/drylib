@@ -2,7 +2,7 @@
 
 # Rust macro-library for Don't Repeating Yourself
 
-### DRYlib is a library that designed for reducing the amount of duplicate code. Take a look a the macros:
+### DRYlib is a library that designed for reducing the amount of duplicate code.
 #### Take a look at clones macros example from examples/clones.rs:
 ```rust
 extern crate drylib;
@@ -51,7 +51,7 @@ fn main() {
     // This will print: cdigit: 4, cvector: [4, 5, 6], cstring: this is a mutable cloned string
 }
 ```
-#### An then a the muts macro example from examples/muts.rs:
+#### An then at the muts macro example from examples/muts.rs:
 ```rust
 extern crate drylib;
 
