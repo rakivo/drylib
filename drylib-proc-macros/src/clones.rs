@@ -45,6 +45,7 @@ where I: Iterator<Item = TokenTree>
                 (false, ret)
             }
         } else {
+            if next { panic!("Expected identifier after `mut`") }
             (false, ret)
         }
     }).1

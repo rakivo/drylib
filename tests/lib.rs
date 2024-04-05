@@ -1,6 +1,8 @@
 #[cfg(test)]
 mod tests {
+    #[allow(unused_imports)]
     use drylib::*;
+    use drylib_proc_macros::*;
 
     #[test]
     fn muting() {
