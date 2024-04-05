@@ -1,6 +1,6 @@
 [package]
 name = "drylib"
-version = "0.1.3"
+version = "0.1.4"
 edition = "2021"
 authors = ["Mark Tyrkba <marktyrkba456@gmail.com>"]
 categories = ["macros-and-metaprogramming", "development-tools::procedural-macro-helpers", "code-generation"]
