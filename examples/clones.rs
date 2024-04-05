@@ -11,7 +11,10 @@ fn main() {
     // And you can clone them with the `clones` macro:
     clones!(digit, vector, string); // Just specify what variables you want to clone
     // This ^ creates new variables using the formula: {CLONES_PREFIX}{identifier(name) of the variable}.
-    // By default CLONES_PREFIX is 'c', but you can specify it with following features: [clones-prefix-c, clones-prefix-cl, clones-prefix-clo, clones-prefix-clon, clones-prefix-clone], select the one and prefixes will be appropriate
+    // By default CLONES_PREFIX is 'c', but you can specify it with following features:
+    // [clones-prefix-c, clones-prefix-cl, clones-prefix-clo, clones-prefix-clon, clones-prefix-clone]
+    // Select the one and prefixes will be appropriate.
+    //
     // Therefore, the `clones` macro expands as follows:
     // let cdigit = digit.clone();
     // let cvector = vector.clone();
