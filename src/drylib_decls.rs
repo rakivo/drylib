@@ -15,13 +15,13 @@ macro_rules! parse { // parses one type into another
 // am -> Arc Mutex
 #[macro_export]
 macro_rules! am { // creates Arc<Mutex<`your variable`>>
-    ($var: expr) => { Arc::new(Mutex::new($var)) };
+    ($var: expr) => { std::sync::Arc::new(std::sync::Mutex::new($var)) };
 }
 
 #[macro_export]
 macro_rules! sleep { // puts thread on sleep
-    (i $t: expr) => { thread::sleep(Duration::from_secs($t as u64)) };
-    (d $t: expr) => { thread::sleep($t) };
+    (i|$t: expr) => { std::thread::sleep(std::time::Duration::from_secs($t as u64)) };
+    ($t: expr) => { std::thread::sleep($t) };
 }
 
 #[macro_export]
