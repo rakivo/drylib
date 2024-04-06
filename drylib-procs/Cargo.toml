@@ -8,7 +8,7 @@ description = "Rust macro-library for Don't Repeating Yourself"
 keywords = ["macros", "dry", "drylib"]
 license = "MIT OR Apache-2.0"
 repository = "https://github.com/rakivo/drylib/tree/main/drylib-procs"
-rust-version = "1.79.0"
+rust-version = "1.56.0"
     
 [features]
 default = ["muts", "clones", "mutclones"]
