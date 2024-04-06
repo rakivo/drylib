@@ -16,10 +16,11 @@ fn main() {
     let string = "this is a string".to_owned();
 
     // And you can clone them with the `clones` macro:
-    clones!(digit, vector, string); // Just specify what variables you want to clone
-    // This ^ creates new variables using the formula: {CLONES_PREFIX}{identifier(name) of the variable}.
+    clones!(digit, vector, string); // Just type what variables you want to clone
+    // The `clones` macro creates new variables using the following formula: 
+    // format!({CLONES_PREFIX}{identifier(name) of the variable}).
     // By default CLONES_PREFIX is 'c', but you can specify it with following features:
-    // [clones-prefix-c, clones-prefix-cl, clones-prefix-clo, clones-prefix-clon, clones-prefix-clone]
+    // [clones-prefix-c, clones-prefix-cl, and so on until clones-prefix-clone]
     // Select the one and prefixes will be appropriate.
     //
     // Therefore, the `clones` macro expands as follows:
@@ -30,7 +31,19 @@ fn main() {
     // We can print them:
     println!("cdigit: {cdigit}, cvector: {cvector:?}, cstring: {cstring}");
 
-    // Here is another one, the `mutclones` macro, it does the same thing as the clones macro, but expanded variables are mutable.
+    // By the way, you can use the `clones` macro specifying 
+    // mutability of the variables that you want to clone as in here:
+    clones!(mut digit, vector, mut string); // Just specify what variables you want to clone.
+    // this one ^^^^^ and this one ^^^^^^ will be created as mutable variables, 
+    // with the formula already described up above.
+    //
+    // Therefore, this macro call expands follows:
+    // let mut cdigit = digit.clone();
+    // let cvector = vector.clone();
+    // let mut cstring = string.clone();
+
+    // Here is another one, the `mutclones` macro, it does the same thing as the clones macro, 
+    but created variables are all mutable.
     mutclones!(digit, vector, string); // The `mutclones` macro expands in this code:
     // let mut cdigit = digit.clone();
     // let mut cvector = vector.clone();
@@ -52,7 +65,7 @@ extern crate drylib; // Import the drylib library
 use drylib::*; // Bring all of the macros from the drylib into scope
 
 fn main() {
-    //  <++++++++++++++++++++++++ Let's start with creating tuple structs  ++++++++++++++++++++++++>
+    //  <++++++++++++ Let's start with creating tuple structs  ++++++++++++>
 
     // You can create a pub tuple struct using the pubstruct macro like that:
     pubstruct!{
@@ -61,7 +74,8 @@ fn main() {
     };
     // This ^ will expand into this:
     // pub struct Tuple(pub usize, pub i32, pub u32);
-    // So that's kinda the point of the macro, create pub struct with all of the fields in it are public as well.
+    // So that's kinda the point of the macro, create pub struct with all of the fields
+    // in it are public as well.
 
     let tuple = Tuple(0, 1, 2); // Let's create an instance of the Tuple
     println!("{tuple:?}");      // Prints: Tuple(0, 1, 2)
@@ -87,7 +101,7 @@ fn main() {
     let structure_lt = StructureLT { greet: "hello again", digit: 1 };
     println!("{structure_lt:?}"); // Prints: StructureLT { greet: "hello again", digit: 1 }
 
-    // Create a struct with both of generics and lifetimes:
+    // Create a struct with both of generics and lifetimes, that's within your power as well:
     pubstruct!{
         #[derive(Debug)]
         StructureLTTU<'a, 'b, T, U> {
@@ -95,7 +109,7 @@ fn main() {
             array: &'b Vec<U>,
         }
     }
-    // And this ^ will expand into this(oh wow):
+    // And this ^ expands like this:
     // pub struct StructureLTTU<'a, 'b, T, U> {
     //     pub greet: &'a T,
     //     pub array: &'b Vec<U>,
