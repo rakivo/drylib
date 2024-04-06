@@ -7,7 +7,7 @@
 ```rust
 extern crate drylib;
 
-use drylib_proc_macros::{clones, mutclones};
+use drylib_procs::{clones, mutclones};
 
 fn main() {
     // You can define variables that you want to clone:
@@ -46,7 +46,7 @@ fn main() {
 ```rust
 extern crate drylib;
 
-use drylib_proc_macros::muts;
+use drylib_procs::muts;
 
 fn main() {
     // With the muts macro you can create mutable variables as follows:
