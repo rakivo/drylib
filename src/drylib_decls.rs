@@ -67,30 +67,6 @@ macro_rules! pubstruct { // creates pub struct with optional generic types, opti
     };
 
     ($(#[$meta:meta])*
-    $name: ident($($t: ty), *)) => {
-        $(#[$meta])*
-        pub struct $name($(pub $t), *);
-    };
-
-    ($(#[$meta:meta])*
-    $name: ident<$($T: ident), +>($($t: ty), *)) => {
-        $(#[$meta])*
-        pub struct $name<$($T,) *>($(pub $t), *);
-    };
-
-    ($(#[$meta:meta])*
-    $name: ident<$($L: lifetime), +>($($t: ty), *)) => {
-        $(#[$meta])*
-        pub struct $name<$($L,) *>($(pub $t), *);
-    };
-
-    ($(#[$meta:meta])*
-    $name: ident<$($L: lifetime), +, $($T: ident), +>($($t: ty), *)) => {
-        $(#[$meta])*
-        pub struct $name<$($L,) * $($T,) *>($(pub $t), *);
-    };
-
-    ($(#[$meta:meta])*
     $name: ident {
         $($field: ident: $t: ty,) *
     }) => {
