@@ -43,29 +43,25 @@ macro_rules! read { // reads input from stdin.
 #[macro_export]
 macro_rules! pub_tupstruct { // creates pub tuple struct with optional generic types, optional lifetimes, with all of the fields are public as well.
     ($(#[$meta:meta])*
-    $name: ident($($t: ty), *)
-    ) => {
+    $name: ident($($t: ty), *)) => {
         $(#[$meta])*
         pub struct $name($(pub $t), *);
     };
 
     ($(#[$meta:meta])*
-    $name: ident<$($T: ident), +>($($t: ty), *)
-    ) => {
+    $name: ident<$($T: ident), +>($($t: ty), *)) => {
         $(#[$meta])*
         pub struct $name<$($T,) *>($(pub $t), *);
     };
 
     ($(#[$meta:meta])*
-    $name: ident<$($L: lifetime), +>($($t: ty), *)
-    ) => {
+    $name: ident<$($L: lifetime), +>($($t: ty), *)) => {
         $(#[$meta])*
         pub struct $name<$($L,) *>($(pub $t), *);
     };
 
     ($(#[$meta:meta])*
-    $name: ident<$($L: lifetime), +, $($T: ident), +>($($t: ty), *)
-    ) => {
+    $name: ident<$($L: lifetime), +, $($T: ident), +>($($t: ty), *)) => {
         $(#[$meta])*
         pub struct $name<$($L,) * $($T,) *>($(pub $t), *);
     };
@@ -75,7 +71,7 @@ macro_rules! pub_tupstruct { // creates pub tuple struct with optional generic t
 macro_rules! pubstruct { // creates pub struct with optional generic types, optional lifetimes, with all of the fields are public as well.
     ($(#[$meta:meta])*
     $name: ident {
-       $($field: ident: $t: ty,) *
+        $($field: ident: $t: ty,) *
     }) => {
         $(#[$meta])*
         pub struct $name {
