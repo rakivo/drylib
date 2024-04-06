@@ -132,7 +132,7 @@ mod tests {
 
     #[test]
     fn creating_structs() {
-        pub_tupstruct!{
+        pubstruct!{
             #[derive(Debug)]
             Tuple(usize, i32, u32)
         };
@@ -140,7 +140,7 @@ mod tests {
         #[allow(unused)]
         let tuple = Tuple(0, 1, 2);
 
-        pub_tupstruct!{
+        pubstruct!{
             #[derive(Debug)]
             TupleT<T>(T, i32, u32)
         };
@@ -148,7 +148,7 @@ mod tests {
         #[allow(unused)]
         let tuple_t = TupleT("hello", 1, 2);
 
-        pub_tupstruct!{
+        pubstruct!{
             #[derive(Debug)]
             TupleTU<T, U>(T, i32, U)
         };
@@ -156,7 +156,7 @@ mod tests {
         #[allow(unused)]
         let tuple_tu = TupleTU("hello", 1, vec![1, 2, 3]);
         
-        pub_tupstruct!{
+        pubstruct!{
             #[derive(Debug)]
             TupleLT<'a>(i32, &'a i32)
         };
@@ -164,7 +164,7 @@ mod tests {
         #[allow(unused)]
         let tuple_lt = TupleLT(0, &1);
 
-        pub_tupstruct!{
+        pubstruct!{
             #[derive(Debug)]
             TupleLTT<'a, T>(T, &'a i32)
         }
@@ -172,7 +172,7 @@ mod tests {
         #[allow(unused)]
         let tuple_ltt = TupleLTT("hello", &1);
 
-        pub_tupstruct!{
+        pubstruct!{
             #[derive(Debug)]
             TupleLTU<'a, T, U>(T, &'a i32, U)
         }

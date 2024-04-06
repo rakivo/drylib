@@ -7,7 +7,7 @@
 ```rust
 extern crate drylib;
 
-use drylib::drylib_procs::{clones, mutclones};
+use drylib::{clones, mutclones}; // Use the best library in the world
 
 fn main() {
     // You can define variables that you want to clone:
@@ -18,7 +18,10 @@ fn main() {
     // And you can clone them with the `clones` macro:
     clones!(digit, vector, string); // Just specify what variables you want to clone
     // This ^ creates new variables using the formula: {CLONES_PREFIX}{identifier(name) of the variable}.
-    // By default CLONES_PREFIX is 'c', but you can specify it with following features: [clones-prefix-c, clones-prefix-cl, clones-prefix-clo, clones-prefix-clon, clones-prefix-clone], select the one and prefixes will be appropriate
+    // By default CLONES_PREFIX is 'c', but you can specify it with following features:
+    // [clones-prefix-c, clones-prefix-cl, clones-prefix-clo, clones-prefix-clon, clones-prefix-clone]
+    // Select the one and prefixes will be appropriate.
+    //
     // Therefore, the `clones` macro expands as follows:
     // let cdigit = digit.clone();
     // let cvector = vector.clone();
@@ -42,40 +45,67 @@ fn main() {
     println!("cdigit: {cdigit}, cvector: {cvector:?}, cstring: {cstring}");
 }
 ```
-#### An then at the muts macro example from examples/muts.rs:
+#### An then at the pubstruct macro example from examples/structs.rs:
 ```rust
-extern crate drylib;
+extern crate drylib; // Import the drylib library
 
-use drylib::drylib_procs::muts;
+use drylib::*; // Bring all of the macros from the drylib into scope
 
 fn main() {
-    // With the muts macro you can create mutable variables as follows:
-    muts!(vector = vec![7, 8, 9]; array = [1; 3]; string = "this is a mutable string".to_owned());
-    // But you cannot do it like that:
-    // muts!(a; b; c); 
-    // You will see this error:
-    //     error: proc macro panicked
-    //    |
-    //    |     muts!(a; b; c); 
-    //    |     ^^^^^^^^^^^^^^
-    //    |
-    //    = help: message: Expected '=' after identifier
-    // Assign variables in-place as showed in here       ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+    //  <++++++++++++++++++++++++ Let's start with creating tuple structs  ++++++++++++++++++++++++>
 
-    // The `muts` macro expands as follows:
-    // let mut vector = vec![7, 8, 9];
-    // let mut array = [1; 3];
-    // let mut string = "this is a mutable string".to_owned();
-        
-    // Let's print them:
-    println!("vector: {vector:?}, array: {array:?}, string: {string}");
+    // You can create a pub tuple struct using the pubstruct macro like that:
+    pubstruct!{
+        #[derive(Debug)]
+        Tuple(usize, i32, u32) // Define a tuple with types usize, i32, and u32
+    };
+    // This ^ will expand into this:
+    // pub struct Tuple(pub usize, pub i32, pub u32);
+    // So that's kinda the point of the macro, create pub struct with all of the fields in it are public as well.
 
-    // Reassign because we can
-    vector = vec![10, 11, 12];
-    array = [2; 3];
-    string = "this is a reassigned mutable string".to_owned();
+    let tuple = Tuple(0, 1, 2); // Let's create an instance of the Tuple
+    println!("{tuple:?}");      // Prints: Tuple(0, 1, 2)
 
-    // And print them again:
-    println!("vector: {vector:?}, array: {array:?}, string: {string}");
+    // You can create a pub tuple struct with a generic type T as well:
+    pubstruct!{
+        #[derive(Debug)]
+        TupleT<T>(T, i32, u32)
+    };
+
+    let tuple_t = TupleT(0, 1, 2);
+    println!("{tuple_t:?}"); // Prints: TupleT(0, 1, 2)
+
+    // Also you create a struct with a lifetime:
+    pubstruct!{
+        #[derive(Debug)]
+        StructureLT<'a> {
+            greet: &'a str,
+            digit: i32,
+        }
+    }
+
+    let structure_lt = StructureLT { greet: "hello again", digit: 1 };
+    println!("{structure_lt:?}"); // Prints: StructureLT { greet: "hello again", digit: 1 }
+
+    // Create a struct with both of generics and lifetimes:
+    pubstruct!{
+        #[derive(Debug)]
+        StructureLTTU<'a, 'b, T, U> {
+            greet: &'a T,
+            array: &'b Vec<U>,
+        }
+    }
+    // And this ^ will expand into this(oh wow):
+    // pub struct StructureLTTU<'a, 'b, T, U> {
+    //     pub greet: &'a T,
+    //     pub array: &'b Vec<U>,
+    // }
+
+    let structure_lttu = StructureLTTU { greet: &"hello again", array: &vec![1, 2, 3] };
+    println!("{structure_lttu:?}"); // Prints: StructureLTTU { greet: "hello again", array: [1, 2, 3] }
+    // ... Continued in file examples/structs.rs
 }
 ```
+#### In this library we have a lot of convenient little macros, That was just a small part of them.
+#### I haven't created the examples for all of them but you can do a PR and help me with that.
+#### There will be more and more macros in the future, the library is still far from its final version.

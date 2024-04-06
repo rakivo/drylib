@@ -1,6 +1,6 @@
 extern crate drylib;
 
-use drylib::{clones, mutclones};
+use drylib::{clones, mutclones}; // Use the best library in the world
 
 fn main() {
     // You can define variables that you want to clone:
