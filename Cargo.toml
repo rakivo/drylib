@@ -11,7 +11,7 @@ repository = "https://github.com/rakivo/drylib"
 rust-version = "1.56.0"
 
 [dependencies]
-drylib-procs = { version = "0.1.0", optional = true }
+drylib-procs = { version = "0.1.5", optional = true }
     
 [features]
 default = ["muts", "decls", "clones", "mutclones", "drylib-procs"]
