@@ -3,10 +3,10 @@ pub extern crate drylib_proc_macros;
 mod drylib_decl_macros;
 
 /* TODO:
+    clean code
+    update tests
     update README
     update examples
-    update tests
-    create proper documentation
-    clean code
     do better macros
+    create proper documentation
 */

@@ -41,52 +41,74 @@ macro_rules! read { // reads input from stdin.
 }
 
 #[macro_export]
-macro_rules! pub_tuple_struct {
-(   $(#[$meta:meta])*
+macro_rules! pub_tupstruct { // creates pub tuple struct with optional generic types, optional lifetimes, with all of the fields are public as well.
+    ($(#[$meta:meta])*
     $name: ident($($t: ty), *)
-) => {
+    ) => {
         $(#[$meta])*
         pub struct $name($(pub $t), *);
+    };
+
+    ($(#[$meta:meta])*
+    $name: ident<$($T: ident), +>($($t: ty), *)
+    ) => {
+        $(#[$meta])*
+        pub struct $name<$($T,) *>($(pub $t), *);
+    };
+
+    ($(#[$meta:meta])*
+    $name: ident<$($L: lifetime), +>($($t: ty), *)
+    ) => {
+        $(#[$meta])*
+        pub struct $name<$($L,) *>($(pub $t), *);
+    };
+
+    ($(#[$meta:meta])*
+    $name: ident<$($L: lifetime), +, $($T: ident), +>($($t: ty), *)
+    ) => {
+        $(#[$meta])*
+        pub struct $name<$($L,) * $($T,) *>($(pub $t), *);
     };
 }
 
 #[macro_export]
-macro_rules! pub_struct { // creates pub struct with all of the fields are public as well.
-(   $(#[$meta:meta])*
+macro_rules! pubstruct { // creates pub struct with optional generic types, optional lifetimes, with all of the fields are public as well.
+    ($(#[$meta:meta])*
     $name: ident {
        $($field: ident: $t: ty,) *
-    }
-) => {
+    }) => {
         $(#[$meta])*
         pub struct $name {
             $(pub $field: $t), *
         }
-    }
-}
+    };
 
-#[macro_export]
-macro_rules! pubstructT { // creates pub struct with generic types, with all of the fields are public as well.
-(   $(#[$meta:meta])*
+    ($(#[$meta:meta])*
     $name: ident<$($T: ident), +> {
         $($field: ident: $t:ty,) *
-    }
-) => {
+    }) => {
         $(#[$meta])*
-        pub struct $name<$($T),*> {
+        pub struct $name<$($T,) *> {
             $(pub $field: $t), *
         }
-    }
-}
+    };
 
-#[macro_export]
-macro_rules! pubstructLT { // creates pub struct with generic types and lifetimes, with all of the fields are public as well.
-(   $(#[$meta:meta])*
+    ($(#[$meta:meta])*
+    $name: ident<$($L: lifetime), +> {
+        $($field: ident: $t:ty,) *
+    }) => {
+        $(#[$meta])*
+        pub struct $name<$($L,) *> {
+            $(pub $field: $t), *
+        }
+    };
+
+    ($(#[$meta:meta])*
     $name: ident<$($L: lifetime), +, $($T: ident), +> {
         $($field: ident: $t:ty,) *
-    }
-) => {
+    }) => {
         $(#[$meta])*
-        pub struct $name<$($L,)* $($T,)*> {
+        pub struct $name<$($L,) * $($T,) *> {
             $(pub $field: $t), *
         }
     }

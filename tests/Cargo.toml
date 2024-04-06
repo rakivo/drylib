@@ -4,7 +4,9 @@ version = "0.1.0"
 edition = "2021"
 
 [dependencies]
-drylib = "0.1.4"
+# drylib = "0.1.4"
+drylib = { path = ".." }
+    
 
 [lib]
 path = "lib.rs"
