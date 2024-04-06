@@ -1,6 +1,6 @@
 extern crate drylib;
 
-use drylib::drylib_procs::muts;
+use drylib::muts;
 
 fn main() {
     // With the muts macro you can create mutable variables as follows:

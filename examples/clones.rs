@@ -1,6 +1,6 @@
 extern crate drylib;
 
-use drylib::drylib_procs::{clones, mutclones};
+use drylib::{clones, mutclones};
 
 fn main() {
     // You can define variables that you want to clone:

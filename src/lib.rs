@@ -1,4 +1,5 @@
-pub extern crate drylib_procs;
+pub extern crate drylib_procs as procs;
+pub use procs::*;
 #[cfg(feature = "decls")]
 mod drylib_decls;
 

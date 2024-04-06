@@ -1,8 +1,6 @@
 #[cfg(test)]
 mod tests {
-    #[allow(unused)]
     use drylib::*;
-    use drylib::drylib_procs::*;
 
     #[test]
     fn muting() {
