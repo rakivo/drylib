@@ -2,7 +2,7 @@
 mod tests {
     #[allow(unused)]
     use drylib::*;
-    use drylib::drylib_proc_macros::*;
+    use drylib::drylib_procs::*;
 
     #[test]
     fn muting() {

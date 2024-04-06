@@ -1,6 +1,6 @@
-pub extern crate drylib_proc_macros;
+pub extern crate drylib_procs;
 #[cfg(feature = "decls")]
-mod drylib_decl_macros;
+mod drylib_decls;
 
 /* TODO:
     clean code
