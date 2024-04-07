@@ -35,11 +35,11 @@ fn main() {
 
     // By the way, you can use the `clones` macro specifying 
     // mutability of the variables that you want to clone as in here:
-    clones!(mut digit, vector, mut string); // Just specify what variables you want to clone.
+    clones!(mut digit, vector, mut string);
     // this one ^^^^^ and this one ^^^^^^ will be created as mutable variables, 
     // with the formula already described up above.
     //
-    // This macro call expands follows:
+    // This macro call expands as follows:
     //
     // let mut cdigit = digit.clone();
     // let cvector = vector.clone();
