@@ -8,5 +8,6 @@ mod drylib_decls;
     update README
     update examples
     do better macros
+    create an example for pubimpl macro
     create proper documentation
 */
