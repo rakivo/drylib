@@ -14,10 +14,11 @@ rust-version = "1.56.0"
 drylib-procs = { version = "0.1.5", optional = true }
     
 [features]
-default = ["muts", "decls", "clones", "mutclones", "drylib-procs"]
+default = ["muts", "decls", "clones", "pubimpl", "mutclones", "drylib-procs"]
 decls = []
 muts                = ["drylib-procs/muts"]
 clones              = ["drylib-procs/clones"]
+pubimpl             = ["drylib-procs/pubimpl"]
 mutclones           = ["drylib-procs/mutclones"]
 clones-prefix-c     = ["drylib-procs/clones-prefix-c"]
 clones-prefix-cl    = ["drylib-procs/clones-prefix-cl"]

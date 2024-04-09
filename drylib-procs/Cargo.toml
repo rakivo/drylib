@@ -11,9 +11,10 @@ repository = "https://github.com/rakivo/drylib/tree/main/drylib-procs"
 rust-version = "1.56.0"
     
 [features]
-default = ["muts", "clones", "mutclones"]
+default = ["muts", "clones", "pubimpl", "mutclones"]
 muts = []
 clones = []
+pubimpl = []
 mutclones = []
 clones-prefix-c = []
 clones-prefix-cl = []

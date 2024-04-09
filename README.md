@@ -1,4 +1,4 @@
-# PAY ATTENTION! CRATE IS UNFINISHED!
+# PAY ATTENTION! THE CRATE IS UNFINISHED!
 
 # Rust macro-library for Don't Repeating Yourself
 
