@@ -34,7 +34,7 @@ where I: Iterator<Item = TokenTree>
                     loop { // Collecting all of the tokens starting from Punct('=') to the Punct(';')
                         if let Some(next) = iter.next() {
                             if let TokenTree::Punct(punct) = &next {
-                                if punct.as_char() == ';' { break; }
+                                if punct.as_char().eq(&';') { break; }
                             }
                             temp.push(next);
                         } else { break; }
