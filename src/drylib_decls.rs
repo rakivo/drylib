@@ -2,14 +2,14 @@
 macro_rules! lock { // locks given variable whether it's mutex or not
     ($var: expr) => { $var.lock().expect("Failed to lock") };
     ($var: expr, $expect: literal) => { $var.lock().expect($expect) };
-    ($var: ident;e) => { $var.lock().expect(&format!("Failed to lock {var}", var = stringify!($var))) };
+    ($var: ident:?) => { $var.lock().expect(&format!("Failed to lock {var}", var = stringify!($var))) };
 }
 
 #[macro_export]
 macro_rules! parse { // parses one type into another
     ($var: expr, $type: ty) => { $var.parse::<$type>().expect("Failed to parse") };
     ($var: expr, $type: ty, $expect: literal) => { $var.parse::<$type>().expect($expect) };
-    ($var: expr, $type: ty;e) => { $var.parse::<$type>().expect(&format!("Failed to parse {t1} into {t2}", t1 = $var, t2 = stringify!($type))) };
+    ($var: expr, $type: ty:?) => { $var.parse::<$type>().expect(&format!("Failed to parse {t1} into {t2}", t1 = $var, t2 = stringify!($type))) };
 }
 
 // am -> Arc Mutex
@@ -27,17 +27,14 @@ macro_rules! sleep { // puts thread on sleep
 #[macro_export]
 macro_rules! read { // reads input from stdin. 
     // Use std::io::{Write, BufRead, BufReader} for it to work.
-    ($msg: expr, $buf: ident <- $rbuf: expr) => { // rbuf basically is std::io::BufReader
+    ($msg: expr, $rbuf: expr => $buf: expr) => { // rbuf basically is std::io::BufReader
         print!("{m}", m = $msg); std::io::stdout().flush().unwrap();
-        $rbuf.read_line(&mut $buf).ok();
-        $buf = $buf.trim().to_owned()
+        $rbuf.read_line($buf).ok();
     };
-    ($buf: ident <- $rbuf: expr) => {
-        $rbuf.read_line(&mut $buf).ok();
-        $buf = $buf.trim().to_owned()
+    ($rbuf: expr => $buf: expr) => {
+        $rbuf.read_line($buf).ok();
     };
-    (1 $buf: expr) => { stdin().read_line(&mut $buf).ok() };
-    (1b $buf: expr, $rbuf: ident) => { $rbuf.read_line(&mut $buf).ok() };
+    ($buf: expr) => { stdin().read_line($buf).ok() };
 }
 
 #[macro_export]
