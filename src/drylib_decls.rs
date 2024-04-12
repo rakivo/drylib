@@ -40,66 +40,71 @@ macro_rules! read { // reads input from stdin.
 #[macro_export]
 macro_rules! pubstruct { // creates pub struct with optional generic types, optional lifetimes, with all of the fields are public as well.
     ($(#[$meta:meta])*
-    $name: ident($($t: ty), *)) => {
+    $name: ident($(#[$fmeta:meta])* $($t: ty), *)) => {
         $(#[$meta])*
-        pub struct $name($(pub $t), *);
+        pub struct $name($(#[$fmeta])* $(pub $t), *);
     };
 
     ($(#[$meta:meta])*
-    $name: ident<$($T: ident), +>($($t: ty), *)) => {
+    $name: ident<$($T: ident), +>($(#[$fmeta:meta])* $($t: ty), *)) => {
         $(#[$meta])*
-        pub struct $name<$($T,) *>($(pub $t), *);
+        pub struct $name<$($T,) *>($(#[$fmeta])* $(pub $t), *);
     };
 
     ($(#[$meta:meta])*
-    $name: ident<$($L: lifetime), +>($($t: ty), *)) => {
+    $name: ident<$($L: lifetime), +>($(#[$fmeta:meta])* $($t: ty), *)) => {
         $(#[$meta])*
-        pub struct $name<$($L,) *>($(pub $t), *);
+        pub struct $name<$($L,) *>($(#[$fmeta])* $(pub $t), *);
     };
 
     ($(#[$meta:meta])*
-    $name: ident<$($L: lifetime), +, $($T: ident), +>($($t: ty), *)) => {
+    $name: ident<$($L: lifetime), +, $($T: ident), +>($(#[$fmeta:meta])* $($t: ty), *)) => {
         $(#[$meta])*
-        pub struct $name<$($L,) * $($T,) *>($(pub $t), *);
+        pub struct $name<$($L,) * $($T,) *>($(#[$fmeta])* $(pub $t), *);
     };
 
     ($(#[$meta:meta])*
     $name: ident {
-        $($field: ident: $t: ty,) *
+        $($(#[$fmeta:meta])*
+        $field: ident: $t: ty),* $(,)?
     }) => {
         $(#[$meta])*
         pub struct $name {
-            $(pub $field: $t), *
+            $($(#[$fmeta])*
+            pub $field: $t),*
         }
     };
 
     ($(#[$meta:meta])*
-    $name: ident<$($T: ident), +> {
-        $($field: ident: $t:ty,) *
+    $name: ident<$($T: ident),*> {
+        $($(#[$fmeta:meta])*
+        $field:ident: $t:ty),* $(,)?
     }) => {
         $(#[$meta])*
-        pub struct $name<$($T,) *> {
-            $(pub $field: $t), *
+        pub struct $name<$($T),*> {
+            $($(#[$fmeta])* pub $field: $t),*
         }
     };
 
     ($(#[$meta:meta])*
-    $name: ident<$($L: lifetime), +> {
-        $($field: ident: $t:ty,) *
+    $name: ident<$($L: lifetime),*> {
+        $($(#[$fmeta:meta])*
+        $field: ident: $t: ty),* $(,)?
     }) => {
         $(#[$meta])*
-        pub struct $name<$($L,) *> {
-            $(pub $field: $t), *
+        pub struct $name<$($L),*> {
+            $($(#[$fmeta])* pub $field: $t),*
         }
     };
 
-    ($(#[$meta:meta])*
-    $name: ident<$($L: lifetime), +, $($T: ident), +> {
-        $($field: ident: $t:ty,) *
+    ($(#[$meta: meta])*
+    $name: ident<$($L: lifetime),*, $($T: ident),*> {
+        $($(#[$fmeta: meta])*
+        $field: ident: $t: ty),* $(,)?
     }) => {
         $(#[$meta])*
-        pub struct $name<$($L,) * $($T,) *> {
-            $(pub $field: $t), *
+        pub struct $name<$($L),*, $($T),*> {
+            $($(#[$fmeta])* pub $field: $t),*
         }
-    }
+    };
 }
