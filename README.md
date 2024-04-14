@@ -3,6 +3,9 @@
 # Rust macro-library for Don't Repeating Yourself
 
 ### DRYlib is a library that designed for reducing the amount of duplicate code.
+
+## Crates.io: https://crates.io/crates/drylib
+
 #### Take a look at clones macros example from examples/clones.rs:
 ```rust
 extern crate drylib;
