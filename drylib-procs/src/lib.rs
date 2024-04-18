@@ -1,7 +1,10 @@
 extern crate proc_macro;
 
-use proc_macro::TokenStream;
+use proc_macro::{Ident, TokenStream, TokenTree};
 
+#[cfg(feature = "ams")]
+mod ams;
+mod ams_prefix;
 #[cfg(feature = "muts")]
 mod muts;
 #[cfg(feature = "clones")]
@@ -9,6 +12,14 @@ mod clones;
 mod clones_prefix;
 #[cfg(feature = "pubimpl")]
 mod pubimpl;
+
+#[proc_macro]
+#[cfg(feature = "ams")]
+pub fn ams(input: TokenStream) -> TokenStream {
+    use crate::ams::*;
+    let ids = parse_muts(input.into_iter());
+    TokenStream::from_iter(get_ams_(ids, false))
+}
 
 #[proc_macro]
 #[cfg(feature = "muts")]
@@ -23,7 +34,7 @@ pub fn muts(input: TokenStream) -> TokenStream {
 #[cfg(feature = "clones")]
 pub fn clones(input: TokenStream) -> TokenStream {
     use crate::clones::*;
-    let ids = clones_parse_muts_(input.into_iter());
+    let ids = parse_muts(input.into_iter());
     TokenStream::from_iter(get_clones_(ids, false))
 }
 
@@ -31,7 +42,7 @@ pub fn clones(input: TokenStream) -> TokenStream {
 #[cfg(feature = "mutclones")]
 pub fn mutclones(input: TokenStream) -> TokenStream {
     use crate::clones::*;
-    let ids = clones_parse_muts_(input.into_iter());
+    let ids = parse_muts(input.into_iter());
     TokenStream::from_iter(get_clones_(ids, true))
 }
 
@@ -41,4 +52,28 @@ pub fn pubimpl(input: TokenStream) -> TokenStream {
     use crate::pubimpl::*;
     let impl_ = pubimpl_parse_impl_(input.into_iter());
     TokenStream::from_iter(impl_)
+}
+
+// IM = (ident -> i, mutability -> m).to_uppercase();
+pub(crate) type IM = (Ident, bool);
+
+pub(crate) fn parse_muts<I>(iter: I) -> Vec::<IM>
+where I: Iterator<Item = TokenTree>
+{
+    iter.fold((false, Vec::new()), |(next, mut ret), t| {
+        if let TokenTree::Ident(ident) = t {
+            if next {
+                ret.push((ident, true));
+                (false, ret)
+            } else if ident.to_string().eq("mut") {
+                (true, ret)
+            } else {
+                ret.push((ident, false));
+                (false, ret)
+            }
+        } else {
+            if next { panic!("Expected identifier after `mut`") }
+            (false, ret)
+        }
+    }).1
 }
