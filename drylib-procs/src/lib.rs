@@ -55,9 +55,9 @@ pub fn pubimpl(input: TokenStream) -> TokenStream {
 }
 
 // IM = (ident -> i, mutability -> m).to_uppercase();
-pub(crate) type IM = (Ident, bool);
+type IM = (Ident, bool);
 
-pub(crate) fn parse_muts<I>(iter: I) -> Vec::<IM>
+fn parse_muts<I>(iter: I) -> Vec::<IM>
 where I: Iterator<Item = TokenTree>
 {
     iter.fold((false, Vec::new()), |(next, mut ret), t| {
