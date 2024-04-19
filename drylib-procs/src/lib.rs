@@ -22,6 +22,14 @@ pub fn ams(input: TokenStream) -> TokenStream {
 }
 
 #[proc_macro]
+#[cfg(feature = "mutams")]
+pub fn mutams(input: TokenStream) -> TokenStream {
+    use crate::ams::*;
+    let ids = parse_muts(input.into_iter());
+    TokenStream::from_iter(get_ams_(ids, true))
+}
+
+#[proc_macro]
 #[cfg(feature = "muts")]
 pub fn muts(input: TokenStream) -> TokenStream {
     use crate::muts::*;

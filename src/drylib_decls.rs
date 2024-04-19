@@ -1,14 +1,14 @@
 #[macro_export]
 macro_rules! lock { // locks given variable whether it's mutex or not
     ($var: expr) => { $var.lock().expect("Failed to lock") };
-    ($var: expr, $expect: literal) => { $var.lock().expect($expect) };
+    ($var: expr, $expect: expr) => { $var.lock().expect($expect) };
     ($var: ident:?) => { $var.lock().expect(&format!("Failed to lock {var}", var = stringify!($var))) };
 }
 
 #[macro_export]
 macro_rules! parse { // parses one type into another
     ($var: expr, $type: ty) => { $var.parse::<$type>().expect("Failed to parse") };
-    ($var: expr, $type: ty, $expect: literal) => { $var.parse::<$type>().expect($expect) };
+    ($var: expr, $type: ty, $expect: expr) => { $var.parse::<$type>().expect($expect) };
     ($var: expr, $type: ty:?) => { $var.parse::<$type>().expect(&format!("Failed to parse {t1} into {t2}", t1 = $var, t2 = stringify!($type))) };
 }
 

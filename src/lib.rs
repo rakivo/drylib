@@ -1,6 +1,5 @@
 pub use drylib_procs::*;
-#[cfg(feature = "decls")]
-mod drylib_decls;
+#[cfg(feature = "decls")] mod drylib_decls;
 
 /* TODO:
     clean code
