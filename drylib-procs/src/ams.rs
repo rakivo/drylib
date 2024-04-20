@@ -17,8 +17,6 @@ pub fn get_ams_(idents: Vec::<IT>, muts: bool) -> Vec::<TokenTree> {
     let mut ts = Vec::new();
     
     for (ident, ttype) in idents.into_iter() {
-        println!("ident: {ident} reference: {ttype:?}");
-        
         ts.push(TokenTree::Ident(Ident::new("let", Span::call_site())));
         if muts || ttype.eq(&TokenType::Mutable) || ttype.eq(&TokenType::MutableReference) {
             ts.push(TokenTree::Ident(Ident::new("mut", Span::call_site())));
@@ -58,8 +56,6 @@ pub fn get_ams_(idents: Vec::<IT>, muts: bool) -> Vec::<TokenTree> {
 
         ts.push(TokenTree::Group(Group::new(Delimiter::Parenthesis, TokenStream::from_iter(group))));
         ts.push(TokenTree::Punct(Punct::new(';', Spacing::Alone)));
-    }
-    println!("{}", TokenStream::from_iter(ts.clone()).to_string());
-    ts
+    } ts
 }
 
