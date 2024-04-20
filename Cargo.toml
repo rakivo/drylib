@@ -1,6 +1,6 @@
 [package]
 name = "drylib"
-version = "0.1.15"
+version = "0.1.16"
 edition = "2021"
 authors = ["Mark Tyrkba <marktyrkba456@gmail.com>"]
 categories = ["development-tools", "development-tools::procedural-macro-helpers"]
@@ -11,7 +11,7 @@ repository = "https://github.com/rakivo/drylib"
 rust-version = "1.56.0"
 
 [dependencies]
-drylib-procs = { path = "drylib-procs", optional = true }
+drylib-procs = { version = "0.1.8", optional = true }
     
 [features]
 default = ["muts", "decls", "clones", "pubimpl", "mutclones", "drylib-procs"]
