@@ -9,21 +9,33 @@ use proc_macro::{
     TokenStream
 };
 
-use crate::IM;
+use crate::parse::IT;
+use crate::parse::TokenType;
 use crate::clones_prefix::CLONES_PREFIX;
 
-pub fn get_clones_(idents: Vec::<IM>, muts: bool) -> Vec::<TokenTree> {
+pub fn get_clones_(idents: Vec::<IT>, muts: bool) -> Vec::<TokenTree> {
     let mut ts = Vec::new();
     
-    for (ident, mut_) in idents.into_iter() {
+    for (ident, ttype) in idents.into_iter() {
+        println!("ident: {ident} reference: {ttype:?}");
+
         ts.push(TokenTree::Ident(Ident::new("let", Span::call_site())));
-        if muts || mut_ { ts.push(TokenTree::Ident(Ident::new("mut", Span::call_site()))); }
+        if muts || ttype.eq(&TokenType::Mutable) {
+            ts.push(TokenTree::Ident(Ident::new("mut", Span::call_site())));
+        }
         ts.push(TokenTree::Ident(Ident::new(&format!("{CLONES_PREFIX}{ident}"), Span::call_site())));
         ts.push(TokenTree::Punct(Punct::new('=', Spacing::Alone)));
+        if ttype.eq(&TokenType::MutableReference) {
+            ts.push(TokenTree::Ident(Ident::new("mut", Span::call_site())));
+        } else if ttype.eq(&TokenType::ImmutableReference) || ttype.eq(&TokenType::MutableReference) {
+            ts.push(TokenTree::Punct(Punct::new('&', Spacing::Alone)));
+        }
         ts.push(TokenTree::Ident(ident));
         ts.push(TokenTree::Punct(Punct::new('.', Spacing::Alone)));
         ts.push(TokenTree::Ident(Ident::new("clone", Span::call_site())));
         ts.push(TokenTree::Group(Group::new(Delimiter::Parenthesis, TokenStream::new())));
         ts.push(TokenTree::Punct(Punct::new(';', Spacing::Alone)));
-    } ts
+    }
+    println!("{}", TokenStream::from_iter(ts.clone()).to_string());
+    ts
 }

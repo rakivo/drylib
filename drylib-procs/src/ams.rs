@@ -9,15 +9,20 @@ use proc_macro::{
     TokenStream
 };
 
-use crate::IM;
+use crate::parse::IT;
+use crate::parse::TokenType;
 use crate::ams_prefix::AMS_PREFIX;
 
-pub fn get_ams_(idents: Vec::<IM>, muts: bool) -> Vec::<TokenTree> {
+pub fn get_ams_(idents: Vec::<IT>, muts: bool) -> Vec::<TokenTree> {
     let mut ts = Vec::new();
     
-    for (ident, mut_) in idents.into_iter() {
+    for (ident, ttype) in idents.into_iter() {
+        println!("ident: {ident} reference: {ttype:?}");
+        
         ts.push(TokenTree::Ident(Ident::new("let", Span::call_site())));
-        if muts || mut_ { ts.push(TokenTree::Ident(Ident::new("mut", Span::call_site()))); }
+        if muts || ttype.eq(&TokenType::Mutable) || ttype.eq(&TokenType::MutableReference) {
+            ts.push(TokenTree::Ident(Ident::new("mut", Span::call_site())));
+        }
         ts.push(TokenTree::Ident(Ident::new(&format!("{AMS_PREFIX}{ident}"), Span::call_site())));
         ts.push(TokenTree::Punct(Punct::new('=', Spacing::Alone)));
 
@@ -43,10 +48,18 @@ pub fn get_ams_(idents: Vec::<IM>, muts: bool) -> Vec::<TokenTree> {
         group.push(TokenTree::Punct(Punct::new(':', Spacing::Joint)));
         group.push(TokenTree::Punct(Punct::new(':', Spacing::Joint)));
         group.push(TokenTree::Ident(Ident::new("new", Span::call_site())));
-        group.push(TokenTree::Group(Group::new(Delimiter::Parenthesis, TokenStream::from(TokenTree::Ident(ident)))));
+
+        let ident = if ttype.eq(&TokenType::ImmutableReference) || ttype.eq(&TokenType::MutableReference) {
+            vec![TokenTree::Punct(Punct::new('&', Spacing::Alone)), TokenTree::Ident(ident)]
+        } else {
+            vec![TokenTree::Ident(ident)]
+        };
+        group.push(TokenTree::Group(Group::new(Delimiter::Parenthesis, TokenStream::from_iter(ident))));
 
         ts.push(TokenTree::Group(Group::new(Delimiter::Parenthesis, TokenStream::from_iter(group))));
         ts.push(TokenTree::Punct(Punct::new(';', Spacing::Alone)));
-    } ts
+    }
+    println!("{}", TokenStream::from_iter(ts.clone()).to_string());
+    ts
 }
 

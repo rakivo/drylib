@@ -103,9 +103,4 @@ fn main() {
 
     let structure_lttu = StructureLTTU { greet: &"hello again", array: &vec![1, 2, 3] };
     println!("{structure_lttu:?}"); // Prints: StructureLTTU { greet: "hello again", array: [1, 2, 3] }
-
-    let yar = "Helo";
-    let ma = 1;
-
-    ams!(yar, ma);
 }

@@ -1,6 +1,9 @@
 extern crate proc_macro;
 
-use proc_macro::{Ident, TokenStream, TokenTree};
+use proc_macro::TokenStream;
+
+mod parse;
+use parse::parse_muts;
 
 #[cfg(feature = "ams")]
 mod ams;
@@ -60,28 +63,4 @@ pub fn pubimpl(input: TokenStream) -> TokenStream {
     use crate::pubimpl::*;
     let impl_ = pubimpl_parse_impl_(input.into_iter());
     TokenStream::from_iter(impl_)
-}
-
-// IM = (ident -> i, mutability -> m).to_uppercase();
-type IM = (Ident, bool);
-
-fn parse_muts<I>(iter: I) -> Vec::<IM>
-where I: Iterator<Item = TokenTree>
-{
-    iter.fold((false, Vec::new()), |(next, mut ret), t| {
-        if let TokenTree::Ident(ident) = t {
-            if next {
-                ret.push((ident, true));
-                (false, ret)
-            } else if ident.to_string().eq("mut") {
-                (true, ret)
-            } else {
-                ret.push((ident, false));
-                (false, ret)
-            }
-        } else {
-            if next { panic!("Expected identifier after `mut`") }
-            (false, ret)
-        }
-    }).1
 }
