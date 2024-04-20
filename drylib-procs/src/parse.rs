@@ -27,7 +27,6 @@ where I: Iterator<Item = TokenTree>
             }
         } else if let TokenTree::Punct(punct) = t {
             if punct.as_char().eq(&'&') {
-                println!("REFED");
                 (TokenType::ImmutableReference, ret)
             } else { (TokenType::None, ret) }
         } else {
