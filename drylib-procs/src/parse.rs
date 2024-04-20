@@ -17,7 +17,6 @@ where I: Iterator<Item = TokenTree>
 {
     iter.fold((TokenType::None, Vec::new()), |(ttype, mut ret), t| {
         if let TokenTree::Ident(ident) = t {
-            println!("IDENT: {ident}");
             if ident.to_string().eq("mut") {
                 if ttype.eq(&TokenType::ImmutableReference) || ttype.eq(&TokenType::MutableReference) {
                     (TokenType::MutableReference, ret)
@@ -27,7 +26,6 @@ where I: Iterator<Item = TokenTree>
                 (TokenType::None, ret)
             }
         } else if let TokenTree::Punct(punct) = t {
-            println!("PUNCT: {punct}");
             if punct.as_char().eq(&'&') {
                 println!("REFED");
                 (TokenType::ImmutableReference, ret)
