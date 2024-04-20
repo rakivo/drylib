@@ -108,3 +108,19 @@ macro_rules! pubstruct { // creates pub struct with optional generic types, opti
         }
     };
 }
+
+#[macro_export]
+macro_rules! colored {
+    (pr | $($args: tt), *) => { // pr -> print red 
+        println!("\x1b[31m{}\x1b[0m", format_args!($($args)*))
+    };
+    (fr | $($args: tt), *) => { // fr -> format red
+        format!("\x1b[31m{}\x1b[0m", format_args!($($args)*))
+    };
+    (pg | $($args: tt), *) => { // pg -> print gray 
+        println!("\x1b[90m{}\x1b[0m", format_args!($($args)*))
+    };
+    (fg | $($args: tt), *) => { // fg -> format gray
+        format!("\x1b[90m{}\x1b[0m", format_args!($($args)*))
+    };
+}
