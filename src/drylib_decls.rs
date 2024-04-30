@@ -110,6 +110,22 @@ macro_rules! pubstruct { // creates pub struct with optional generic types, opti
 }
 
 #[macro_export]
+macro_rules! impl_getters {
+    ($(#[$meta: meta])*
+    $vis: vis,
+    $name: ident {
+        $($field: ident: $t: ty),*
+    }) => {
+        $(#[$meta])*
+        impl $name {
+            $($vis fn $field(&self) -> &$t {
+                &self.$field
+            })*
+        }
+    };
+}
+
+#[macro_export]
 macro_rules! colored {
     (pr | $($args: tt), *) => { // pr -> print red 
         println!("\x1b[31m{}\x1b[0m", format_args!($($args)*))
