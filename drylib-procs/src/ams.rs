@@ -48,7 +48,7 @@ pub fn get_ams_(idents: Vec::<IT>, muts: bool) -> Vec::<TokenTree> {
         group.push(TokenTree::Ident(Ident::new("new", Span::call_site())));
 
         let ident = if ttype.eq(&TokenType::ImmutableReference) || ttype.eq(&TokenType::MutableReference) {
-            vec![TokenTree::Punct(Punct::new('&', Spacing::Alone)), TokenTree::Ident(ident)]
+            vec![TokenTree::Punct(Punct::new('&', Spacing::Joint)), TokenTree::Ident(ident)]
         } else {
             vec![TokenTree::Ident(ident)]
         };

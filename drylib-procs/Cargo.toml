@@ -1,6 +1,6 @@
 [package]
 name = "drylib-procs"
-version = "0.1.11"
+version = "0.1.12"
 edition = "2021"
 authors = ["Mark Tyrkba <marktyrkba456@gmail.com>"]
 categories = ["development-tools", "development-tools::procedural-macro-helpers"]
@@ -11,13 +11,15 @@ repository = "https://github.com/rakivo/drylib/tree/main/drylib-procs"
 rust-version = "1.56.0"
     
 [features]
-default = ["ams", "muts", "clones", "pubimpl", "mutams", "mutclones"]
+default = ["ams", "muts", "clones", "pubimpl", "impl_getters", "impl_mut_getters", "mutams", "mutclones"]
 ams = []
 muts = []
 mutams = []
 clones = []
 pubimpl = []
 mutclones = []
+impl_getters = []
+impl_mut_getters = []
 ams-prefix-m = []
 ams-prefix-mu = []
 ams-prefix-mut = []

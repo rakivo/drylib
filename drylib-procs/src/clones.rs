@@ -13,7 +13,7 @@ use crate::parse::IT;
 use crate::parse::TokenType;
 use crate::clones_prefix::CLONES_PREFIX;
 
-pub fn get_clones_(idents: Vec::<IT>, muts: bool) -> Vec::<TokenTree> {
+pub(crate) fn get_clones_(idents: Vec::<IT>, muts: bool) -> Vec::<TokenTree> {
     let mut ts = Vec::new();
     
     for (ident, ttype) in idents.into_iter() {

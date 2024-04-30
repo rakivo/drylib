@@ -15,6 +15,8 @@ mod clones;
 mod clones_prefix;
 #[cfg(feature = "pubimpl")]
 mod pubimpl;
+#[cfg(feature = "impl_getters")]
+mod getters;
 
 #[proc_macro]
 #[cfg(feature = "ams")]
@@ -55,6 +57,20 @@ pub fn mutclones(input: TokenStream) -> TokenStream {
     use crate::clones::*;
     let ids = parse_muts(input.into_iter());
     TokenStream::from_iter(get_clones_(ids, true))
+}
+
+#[proc_macro]
+#[cfg(feature = "impl_getters")]
+pub fn impl_getters(input: TokenStream) -> TokenStream {
+    use crate::getters::*;
+    TokenStream::from_iter(getters(input, false))
+}
+
+#[proc_macro]
+#[cfg(feature = "impl_mut_getters")]
+pub fn impl_mut_getters(input: TokenStream) -> TokenStream {
+    use crate::getters::*;
+    TokenStream::from_iter(getters(input, true))
 }
 
 #[proc_macro]
